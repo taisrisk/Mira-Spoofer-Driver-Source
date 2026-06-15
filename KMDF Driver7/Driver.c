@@ -185,7 +185,7 @@ NTSTATUS DriverEntry(
     UNICODE_STRING deviceName;
     UNICODE_STRING symbolicLink;
 
-    KdPrint(("PCCleanup: DriverEntry called\n"));
+    KdPrint(("TRACE: Initialization - PCCleanup: DriverEntry called\n"));
     DbgPrint("PCCleanup: ======== DriverEntry START ========\n");
 
     WDF_DRIVER_CONFIG_INIT(&config, WDF_NO_EVENT_CALLBACK);
@@ -272,7 +272,7 @@ VOID PCCleanupEvtIoDeviceControl(
 
     UNREFERENCED_PARAMETER(Queue);
 
-    KdPrint(("PCCleanup: IOCTL received: 0x%x\n", IoControlCode));
+    KdPrint(("TRACE: Dispatch - PCCleanup: IOCTL received: 0x%x\n", IoControlCode));
 
     switch (IoControlCode) {
     case IOCTL_APPLY_TEMP_PROFILE:
@@ -410,7 +410,7 @@ NTSTATUS BackupOriginalValues(VOID)
         KdPrint(("PCCleanup: Backed up ProductId successfully\n"));
     }
     else {
-        KdPrint(("PCCleanup: Failed to backup ProductId - 0x;x\n", status));
+        KdPrint(("PCCleanup: Failed to backup ProductId - 0x%x\n", status));
         if (NT_SUCCESS(finalStatus)) {
             finalStatus = status;
         }

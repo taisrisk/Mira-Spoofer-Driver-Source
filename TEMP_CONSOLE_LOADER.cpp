@@ -586,6 +586,7 @@ void DisplaySystemInfo() {
 
 int main()
 {
+    std::cout << "TRACE: Program Execution Started.\n";
     DisplayBanner();
 
     // Check for admin rights
@@ -607,9 +608,11 @@ int main()
     }
 
     std::cout << "[+] Running with administrative privileges." << std::endl;
+    std::cout << "TRACE: System environment validated." << std::endl;
 
     // Load the driver
     DriverLoader loader;
+    std::cout << "TRACE: Initiating driver load.\n";
     std::cout << "\n[*] Attempting to load KMDF kernel driver..." << std::endl;
 
     if (!loader.LoadDriver()) {
@@ -635,6 +638,7 @@ int main()
     DriverController controller;
 
     // Connect to kernel driver
+    std::cout << "TRACE: Attempting IPC connection.\n";
     std::cout << "[*] Establishing connection to kernel driver..." << std::endl;
     if (!controller.ConnectToDriver()) {
         std::cerr << "\n[!] CONNECTION FAILED" << std::endl;
@@ -655,6 +659,7 @@ int main()
         std::cerr << "[!] Driver status check failed." << std::endl;
     }
 
+    std::cout << "TRACE: Entering main interactive loop." << std::endl;
     std::cout << "\n[+] All systems operational. Ready for commands." << std::endl;
 
     int choice;
@@ -671,6 +676,7 @@ int main()
         switch (choice) {
         case 1: {
             SeedData seed = GenerateSeed();
+            std::cout << "TRACE: Initiating IOCTL_APPLY_TEMP_PROFILE." << std::endl;
             std::cout << "\n[*] Applying temporary profile..." << std::endl;
             if (controller.ApplyTemporaryProfile(seed)) {
                 std::cout << "\n[SUCCESS] Temporary profile is now active!" << std::endl;
