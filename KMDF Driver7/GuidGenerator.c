@@ -20,7 +20,7 @@ UINT64 HashValue(_In_ UINT64 Value)
 VOID GenerateGUID(_In_ UINT64 Seed, _Out_ PCHAR GuidString, _In_ SIZE_T BufferSize)
 {
     UINT64 hash1 = HashValue(Seed);
-    UINT64 hash2 = HashValue(Seed ^ 0xDEADBEEFCAFEBABEULL);
+    UINT64 hash2 = HashValue(hash1 ^ 0xDEADBEEFCAFEBABEULL); /* Trace: Chained hash for better entropy */
 
     UINT32 d1 = (UINT32)(hash1 & 0xFFFFFFFF);
     UINT16 d2 = (UINT16)((hash1 >> 32) & 0xFFFF);
@@ -39,7 +39,7 @@ VOID GenerateGUID(_In_ UINT64 Seed, _Out_ PCHAR GuidString, _In_ SIZE_T BufferSi
 VOID GenerateUUID(_In_ UINT64 Seed, _Out_ PCHAR UuidString, _In_ SIZE_T BufferSize)
 {
     UINT64 hash1 = HashValue(Seed);
-    UINT64 hash2 = HashValue(Seed ^ 0xDEADBEEFCAFEBABEULL);
+    UINT64 hash2 = HashValue(hash1 ^ 0xDEADBEEFCAFEBABEULL); /* Trace: Chained hash for better entropy */
 
     UINT32 d1 = (UINT32)(hash1 & 0xFFFFFFFF);
     UINT16 d2 = (UINT16)((hash1 >> 32) & 0xFFFF);
